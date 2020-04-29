@@ -23,7 +23,7 @@ SECRET_KEY = 'ox(7^ka&$i$8%nl9g#a$huzfb&+k(&_1x74jma=zinx30doz3y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+THUMBNAIL_DEBUG = True
 ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
 
 # Application definition
@@ -38,9 +38,11 @@ INSTALLED_APPS = [
 
     'account',
     'images',
+    'action',
 
     'social_django',
     'django_extensions',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +145,9 @@ SOCIAL_AUTH_FACEBOOK_SECRET = '51a810c995b3be259f9256764a0e906f'  # Facebook App
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '980774110620-44h2n4mfgi8inl5dn2kj7hdbo48nfk4r.apps.googleusercontent.com'  # Google Consumer Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'UzDD2pZDMLFndOhSVMlIaFqU'  # Google Consumer Secret
+
+from django.urls import reverse_lazy
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: reverse_lazy('user_detail', args=[u.username])
+}
